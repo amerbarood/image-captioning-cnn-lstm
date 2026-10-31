@@ -35,14 +35,30 @@ The model gets the main subject and action right in most cases ("two dogs run th
 
 Validation loss levels off after a few epochs while training loss keeps falling, which is why early stopping kicks in. Natural next steps are more regularisation, beam search instead of greedy decoding, and an attention-based decoder that looks at different image regions for each word.
 
-## Running it
+## Running it (VS Code / Python)
+
+Download [Flickr8k](https://www.kaggle.com/datasets/adityajn105/flickr8k) into `./Flickr8k/` (an `Images/` folder plus `captions.txt`), or pass `--dataset path/to/Flickr8k`.
 
 ```bash
-pip install tensorflow keras numpy pandas matplotlib scikit-learn jupyter
-jupyter notebook notebooks/image_captioning_vgg16_lstm.ipynb
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+python main.py extract-features          # VGG16 features for every image, cached in artifacts/features.npz
+python main.py train                     # up to 25 epochs with early stopping; best model in artifacts/
+python main.py caption --samples 10      # random validation images -> outputs/predicted_captions.png
+python main.py caption --images photo.jpg
 ```
 
-Download Flickr8k (images plus `captions.txt`) into `./Flickr8k/`, or set `dataset_path` in the notebook's "Path Handling" section.
+In VS Code, open the folder, select the `.venv` interpreter and use the **Run and Debug** panel (`.vscode/launch.json` has the three steps, plus "Caption an image file" for the image open in the editor). `pytest` runs fast smoke tests on synthetic data.
+
+| Path | Contents |
+|---|---|
+| [`main.py`](main.py) | Command-line entry point |
+| [`captioning/data.py`](captioning/data.py) | Caption cleaning, tokenizer, train/validation split by image |
+| [`captioning/features.py`](captioning/features.py) | VGG16 feature extraction and caching |
+| [`captioning/model.py`](captioning/model.py) | Merge model, training data generator, greedy decoding |
+| [`captioning/train.py`](captioning/train.py) | Training with checkpoints/early stopping, loss plot, caption grids |
 
 ## Team
 

@@ -6,3 +6,8 @@ runs/
 *.pt
 *.pth
 *.zip
+Flickr8k/
+artifacts/
+outputs/
+.venv/
+.pytest_cache/

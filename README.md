@@ -60,8 +60,6 @@ In VS Code, open the folder, select the `.venv` interpreter and use the **Run an
 | [`captioning/model.py`](captioning/model.py) | Merge model, training data generator, greedy decoding |
 | [`captioning/train.py`](captioning/train.py) | Training with checkpoints/early stopping, loss plot, caption grids |
 
-The original notebook is kept in [`notebooks/`](notebooks).
-
 ## Team
 
 Group 7, D7047E Advanced Deep Learning: **Aamer Barood** and teammates. The original group repository, with full commit history, is [Gabmyr/D7047E-Labs-Group-7](https://github.com/Gabmyr/D7047E-Labs-Group-7).
